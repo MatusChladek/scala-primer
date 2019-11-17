@@ -28,6 +28,6 @@ def sqrt(x: Double): Double = {
   sqrtIter(1.0)
 }
 
-sqrt(3)
+sqrt(2)
 sqrt(1e60)
 sqrt(1e-6)
