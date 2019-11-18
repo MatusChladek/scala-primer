@@ -1,3 +1,5 @@
+package week1
+
 import org.scalatest.FunSuite
 
 class ParanthesesBalancingTest extends FunSuite{
