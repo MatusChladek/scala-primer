@@ -26,5 +26,5 @@ object ParanthesesBalancing extends App {
     func(chars, 0)
   }
 
-  print(balance(")(".toList))
+  print(balance("()".toList))
 }
