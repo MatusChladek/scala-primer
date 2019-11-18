@@ -1,7 +1,5 @@
 package week1
 
-import scala.util.{Failure, Success, Try}
-
 object PascalTriangle extends App {
   def pascal(column: Int, row: Int): Int = {
 
