@@ -29,9 +29,6 @@ object PascalTriangle extends App {
       pascal(column - 1, row - 1) + pascal(column, row - 1)
     }
   }
-
-  print(pascal(2, 700))
-
 }
 
 
