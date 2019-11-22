@@ -27,6 +27,8 @@ object TweetSet {
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet
 
     def head: Tweet
+
+    def union(that: TweetSet): TweetSet
   }
 
   object Empty extends TweetSet {
@@ -41,6 +43,8 @@ object TweetSet {
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
     def head: Tweet = throw new NoSuchElementException("Empty.head")
+
+    def union(that: TweetSet): TweetSet = that
 
     override def toString: String = "."
   }
@@ -74,8 +78,12 @@ object TweetSet {
 
     def head: Tweet = elem
 
+    def union(that: TweetSet): TweetSet = {
+      (left.union(right).union(that)).include(elem)
+    }
+
     /**
-     * If predicate is true for head add it to accumulator and run filterAcc on first left then right sub tree
+     * If predicate is true for head add it to accumulator and run filterAcc on union of left and right
      */
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
       //      TODO TESTS
@@ -83,7 +91,13 @@ object TweetSet {
 
       val leftAcc = left.filterAcc(p, updated_acc)
       right.filterAcc(p, leftAcc)
+
+      /**
+       * this one liner is probably slower since union is computed in each recursive call
+       */
+      //      left.union(right).filterAcc(p, updated_acc)
     }
+
 
     override def toString: String = "{" + left + elem + right + "}"
 
