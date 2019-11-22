@@ -11,4 +11,5 @@ object TweetSetMain extends App {
   val t = new NonEmpty(new Tweet("theTweet2", 2), t1, t2)
   println(t)
   println(t.filter(x => x.text.contains("3")))
+  println(t.descendingByRetweet)
 }

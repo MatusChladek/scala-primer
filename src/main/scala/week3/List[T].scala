@@ -20,6 +20,8 @@ class Cons[T](val head: T, val tail: List[T]) extends List[T] {
       tail.getElementByIndex(index - 1)
     }
   }
+
+  override def toString: String = head + ""
 }
 
 class Nil[T] extends List[T] {

@@ -29,6 +29,27 @@ object TweetSet {
     def head: Tweet
 
     def union(that: TweetSet): TweetSet
+
+    type TweetList = List[Tweet]
+
+    def descendingByRetweet: TweetList = {
+      val emptyList = new Nil[Tweet]
+      this.addMinTweets(emptyList)
+    }
+
+    def addMinTweets(acc: TweetList): Cons[Tweet] = {
+      val min = this.findMinAcc
+
+      if (min.retweets.equals(-1)) new Cons[Tweet](min, acc)
+      else this.remove(min).addMinTweets(new Cons[Tweet](min, acc))
+    }
+
+    def remove(x: Tweet): TweetSet
+
+    def findMinAcc: Tweet
+
+    def findMin(acc: Tweet): Tweet
+
   }
 
   object Empty extends TweetSet {
@@ -45,6 +66,17 @@ object TweetSet {
     def head: Tweet = throw new NoSuchElementException("Empty.head")
 
     def union(that: TweetSet): TweetSet = that
+
+    def remove(x: Tweet): TweetSet = this
+
+    def findMinAcc: Tweet = {
+      //            throw new NoSuchElementException("Empty.findMinAcc")
+      new Tweet("Empty.findMinAcc", -1)
+    }
+
+    def findMin(acc: Tweet): Tweet = {
+      acc
+    }
 
     override def toString: String = "."
   }
@@ -93,11 +125,28 @@ object TweetSet {
       right.filterAcc(p, leftAcc)
 
       /**
-       * this one liner is probably slower since union is computed in each recursive call
+       * probably slower since union is computed in each recursive call
        */
       //      left.union(right).filterAcc(p, updated_acc)
     }
 
+    /**
+     * Returns TweetSet with only one Tweet removed
+     */
+    def remove(tw: Tweet): TweetSet = {
+      if (tw.text < elem.text) new NonEmpty(elem, left.remove(tw), right)
+      else if (elem.text < tw.text) new NonEmpty(elem, left, right.remove(tw))
+      else left.union(right)
+    }
+
+    def findMinAcc: Tweet = {
+      findMin(new Tweet("Init", Int.MaxValue))
+    }
+
+    def findMin(acc: Tweet): Tweet = {
+      if (elem.retweets < acc.retweets) left.union(right).findMin(elem)
+      else left.union(right).findMin(acc)
+    }
 
     override def toString: String = "{" + left + elem + right + "}"
 
