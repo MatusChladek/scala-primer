@@ -78,6 +78,7 @@ object TweetSet {
      * If predicate is true for head add it to accumulator and run filterAcc on first left then right sub tree
      */
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
+      //      TODO TESTS
       val updated_acc = if (p(this.head)) acc.include(this.head) else acc
 
       val leftAcc = left.filterAcc(p, updated_acc)
