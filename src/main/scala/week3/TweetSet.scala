@@ -74,25 +74,15 @@ object TweetSet {
 
     def head: Tweet = elem
 
+    /**
+     * If predicate is true for head add it to accumulator and run filterAcc on first left then right sub tree
+     */
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
-//      println(p(this.head))
-//      var updated_acc: TweetSet = Empty
-
       val updated_acc = if (p(this.head)) acc.include(this.head) else acc
-//      println(updated_acc)
-//      if (p(this.head)) {
-//        updated_acc = acc.include(this.head)
-//        println("current1" + updated_acc)
-//      } else {
-//        updated_acc = acc
-//        println("current2" + updated_acc)
-//      }
-//      println("current up 1" + updated_acc)
+
       val leftAcc = left.filterAcc(p, updated_acc)
-//      println("current up 2" + leftAcc)
       right.filterAcc(p, leftAcc)
     }
-
 
     override def toString: String = "{" + left + elem + right + "}"
 
