@@ -21,7 +21,7 @@ class Cons[T](val head: T, val tail: List[T]) extends List[T] {
     }
   }
 
-  override def toString: String = head + ""
+  override def toString: String = "{" + head + "}{" + tail + "}"
 }
 
 class Nil[T] extends List[T] {
