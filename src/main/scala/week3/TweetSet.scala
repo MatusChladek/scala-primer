@@ -4,7 +4,7 @@ object TweetSet {
 
   class Tweet(val text: String, val retweets: Int) {
 
-    override def toString: String = this.text + this.retweets
+    override def toString: String = "Text: " + this.text +" - Retweets: "+ this.retweets+ ";"
 
   }
 
