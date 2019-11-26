@@ -23,9 +23,15 @@ case class Leaf(char: Char, weight: Int) extends CodeTree
 trait Huffman extends HuffmanInterface {
 
   // Part 1: Basics
-  def weight(tree: CodeTree): Int = ??? // tree match ...
+  def weight(tree: CodeTree): Int = tree match {
+    case f: Fork => f.weight
+    case l: Leaf => l.weight
+  }
 
-  def chars(tree: CodeTree): List[Char] = ??? // tree match ...
+  def chars(tree: CodeTree): List[Char] = tree match {
+    case f: Fork => f.chars
+    case l: Leaf => List(l.char)
+  }
 
   def makeCodeTree(left: CodeTree, right: CodeTree) =
     Fork(left, right, chars(left) ::: chars(right), weight(left) + weight(right))
@@ -66,7 +72,22 @@ trait Huffman extends HuffmanInterface {
    * println("integer is  : "+ theInt)
    * }
    */
-  def times(chars: List[Char]): List[(Char, Int)] = ???
+  def times(chars: List[Char]): List[(Char, Int)] = {
+
+    @scala.annotation.tailrec
+    def timesAcc(chars: List[Char], acc: List[(Char, Int)]): List[(Char, Int)] = {
+      if (chars.isEmpty) acc
+      else {
+        val headChar = chars.head
+        val newCharTuple = (headChar, chars.count(_ == headChar))
+        timesAcc(chars.filter(_ != headChar), newCharTuple :: acc)
+      }
+    }
+
+    val empty = List[(Char, Int)]()
+    timesAcc(chars, empty)
+  }
+
 
   /**
    * Returns a list of `Leaf` nodes for a given frequency table `freqs`.
@@ -191,4 +212,5 @@ trait Huffman extends HuffmanInterface {
   def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = ???
 }
 
-object Huffman extends Huffman
+object Huffman extends Huffman {
+}
