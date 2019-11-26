@@ -334,5 +334,6 @@ trait Huffman extends HuffmanInterface {
     val newBitList = List[Bit]()
     quickEncodeAcc(text, newTable, newBitList)
   }
+}
 
-  object Huffman extends Huffman
+object Huffman extends Huffman
