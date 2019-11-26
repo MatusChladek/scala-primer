@@ -34,6 +34,12 @@ class Nil[T] extends List[T] {
   def getElementByIndex(index: Int): T = throw new IndexOutOfBoundsException("There is not such index")
 }
 
+object List {
+  def apply[T](x1: T, x2: T): List[T] = new Cons[T](x1, new Cons[T](x2, new Nil[T]))
+
+  def apply[T](): List[T] = new Nil[T]
+}
+
 /**
  * Can be passed to fucntions as well
  */
