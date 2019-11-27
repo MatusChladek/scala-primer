@@ -1,7 +1,7 @@
 package week6
 
 object nQueen extends App {
-  def queens(rows: Int): Set[List[Int]] = {
+  def queens(rows: Int): Unit = {
     def placeQueens(k: Int): Set[List[Int]] = {
       if (k.equals(0)) Set(List())
       else for {
@@ -19,11 +19,6 @@ object nQueen extends App {
       queensWithRow.forall {
         case (r, c) => col != c && math.abs(col - c) != row - r
       }
-    }
-
-    def show(queens: List[Int]): String = {
-      val lines = for (col <- queens.reverse)
-        yield Vector.fill(queens.length)("* ").updated(col, "X ").mkString("\n" + (lines.mkString("\n")))
     }
   }
 
