@@ -18,10 +18,26 @@ object ScalaProduct extends App {
   val x = 17
   println(isPrime(x))
 
-  def ForExpressions(n: Int): IndexedSeq[Tuple2[Int, Int]] = {
+  def ForLoop(n: Int): IndexedSeq[Tuple2[Int, Int]] = {
     (1.until(n)).flatMap(i =>
       (1.until(i)).map(j => (i, j))).filter(pair => isPrime(pair._1 + pair._2))
   }
 
-  println(ForExpressions(7))
+  println(ForLoop(7))
+
+  def ForExpression(n: Int): IndexedSeq[Tuple2[Int, Int]] = {
+    for {
+      i <- 1.until(n)
+      j <- 1.until(i)
+      if isPrime(i + j)
+    } yield (i, j)
+  }
+
+  println(ForExpression(7))
+
+  def ScalarProductFor(xs: Vector[Double], ys: Vector[Double]): Double = {
+    (for {
+      (x, y) <- xs.zip(ys)
+    } yield x * y).sum
+  }
 }
