@@ -6,4 +6,5 @@ Topics covered:
 - Data and Abstraction
 - Types and Pattern Matching
 - Lists
-- TBD: Collections
+- Collections
+- Combinatorial Search and For-Expressions
